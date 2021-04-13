@@ -2,7 +2,7 @@
     "development": {
         "username": "root",
         "password": null,
-        "database": "sequelize_db",
+        "database": "project_1",
         "host": "localhost",
         "dialect": "mysql",
         "operatorAliases": 0

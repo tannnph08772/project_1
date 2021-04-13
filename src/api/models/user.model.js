@@ -1,7 +1,13 @@
 const sequelize = require('../../../database/connection');
 const Sequelize = require('sequelize');
 
-const User = sequelize.definde("users", {
+const User = sequelize.define("users", {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
     username: {
         type: Sequelize.STRING(40),
         allowNull: false
@@ -28,7 +34,7 @@ const User = sequelize.definde("users", {
         allowNull: false
     },
     sex: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false
     }
 

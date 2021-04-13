@@ -1,7 +1,7 @@
 const sequelize = require('../../../database/connection');
 const Sequelize = require('sequelize');
 
-const Staff = sequelize.definde("staffs", {
+const Staff = sequelize.define("staffs", {
     name: {
         type: Sequelize.STRING(40),
         allowNull: false
