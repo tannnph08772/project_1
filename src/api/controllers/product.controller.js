@@ -11,15 +11,16 @@ const show = async(req, res, next) => {
 }
 
 const create = async(req, res, next) => {
-    // const Cate = findOne({ where: { id: req.body.id } })
-    // if (req.files) {
-    //     let path = ''
-    //     req.files.forEach(function(files, index, arr) {
-    //         path = path + files.path + ','
-    //     });
-    //     path = path.substring(0, path.lastIndexOf(","))
-    //     Product.image = path
-    // }
+    console.log(req.user)
+        // const Cate = findOne({ where: { id: req.body.id } })
+        // if (req.files) {
+        //     let path = ''
+        //     req.files.forEach(function(files, index, arr) {
+        //         path = path + files.path + ','
+        //     });
+        //     path = path.substring(0, path.lastIndexOf(","))
+        //     Product.image = path
+        // }
     console.log(Product.image)
     await Product.create({
             productName: req.body.productName,

@@ -1,12 +1,10 @@
 const multer = require('multer');
-const { SSL_OP_CRYPTOPRO_TLSEXT_BUG } = require('constants');
-const path = require('path');
 
 var storage = multer.diskStorage({
-    destination: function(res, file, cb) {
-        cb(null, "src/uploads")
+    destination: function(req, file, cb) {
+        cb(null, 'src/uploads')
     },
-    filename: function(res, file, cb) {
+    filename: function(req, file, cb) {
         let filename = `${Date.now()}-tann-${file.originalname}`;
         cb(null, filename);
     }

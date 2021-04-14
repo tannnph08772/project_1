@@ -7,6 +7,7 @@ const app = express();
 const sequelize = require('./database/connection');
 const session = require('express-session');
 const passport = require('passport');
+const initializePassport = require("./src/api/middlewares/passport.middleware.js");
 const router = require('./src/api/routes/index.route');
 const Product = require('./src/api/models/product.model');
 const User = require('./src/api/models/user.model');
@@ -18,14 +19,8 @@ const Category = require('./src/api/models/category.model');
 const staff = require('./src/api/models/staff.model');
 const Payment = require('./src/api/models/payment.model');
 
-app.use((req, res, next) => {
-    User.findByPk(1)
-        .then(user => {
-            req.user = user;
-            next();
-        })
-        .catch(err => console.error(err));
-});
+initializePassport(passport);
+
 app.engine(
     'hbs',
     handlebar({
@@ -40,13 +35,13 @@ app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.static('uploads/'));
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 24 * 60 * 60 * 1000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 router(app);
 
-require('./src/api/middlewares/cart.midlleware')(passport);
+require('./src/api/middlewares/passport.middleware.js')(passport);
 
 Category.hasMany(Product, {
     as: "products",
@@ -78,6 +73,11 @@ Product.belongsToMany(Order, {
     through: OrderItem
 });
 
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    console.log(res.locals)
+    next();
+});
 // sequelize.sync().then(
 //         result => {
 //             return User.findByPk(1);
